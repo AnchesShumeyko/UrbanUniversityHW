@@ -3,12 +3,17 @@ prime = []
 not_prime = []
 
 for i in numbers:
-    if i > 1:
-        for j in range(2, i):
-            if (i % j) == 0:
-                not_prime.append(i)
-                break
-        else:
-            prime.append(i)
-print(f'простые числа: {prime}')
-print(f'составные числа: {not_prime}')
+    if i == 1:
+        continue
+    is_prime = True
+    for j in range(2, i):
+        if i % j == 0:
+            is_prime = False
+            break
+    if is_prime:
+        prime.append(i)
+    else:
+        not_prime.append(i)
+
+print(prime)
+print(not_prime)
