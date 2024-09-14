@@ -5,16 +5,14 @@ def count_calls():
     return calls
 
 def string_info(string):
-    global calls
-    calls += 1
+    count_calls()
     a = string.lower()
     b = string.upper()
     c = len(string)
     return c, a, b
 
 def is_contains(string, list_ = []):
-    global calls
-    calls += 1
+    count_calls()
     a = string.lower()
     for i in list_:
         b = i.lower()
@@ -31,7 +29,3 @@ print(string_info('Armageddon'))
 print(is_contains('Urban', ['ban', 'BaNaN', 'urBAN']))
 print(is_contains('cycle', ['recycling', 'cyclic'])) # No matches
 print(calls)
-print(count_calls())
-
-
-
