@@ -1,6 +1,3 @@
-# импортируйте в него функции divide из модулей fake_math и true_math,
-# назвав их разными именами на своё усмотрение,
-# чтобы не было конфликтов имён, при помощи оператора as.
 from true_math import divide as true_divide
 from fake_math import divide as fake_divide
 
