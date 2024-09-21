@@ -1,4 +1,4 @@
-def calculate_structure_sum(data_structure):
+def count_data(data_structure):
     n = 0
     for i in data_structure:
         if isinstance(i, int):
@@ -6,13 +6,13 @@ def calculate_structure_sum(data_structure):
         elif isinstance(i, str):
             n += len(i)
         elif isinstance(i, dict):
-            n += calculate_structure_sum(list(i.items()))
+            n += count_data(list(i.items()))
         elif isinstance(i, list):
-            n += calculate_structure_sum(i)
+            n += count_data(i)
         elif isinstance(i, tuple):
-            n += calculate_structure_sum(i)
+            n += count_data(i)
         elif isinstance(i, set):
-            n += calculate_structure_sum(i)
+            n += count_data(i)
 
     return n
 
@@ -24,5 +24,5 @@ data_structure = [
   ((), [{(2, 'Urban', ('Urban2', 35))}])
 ]
 
-result = calculate_structure_sum(data_structure)
+result = count_data(data_structure)
 print(result)
