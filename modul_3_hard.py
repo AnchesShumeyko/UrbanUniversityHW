@@ -1,18 +1,18 @@
 def calculate_structure_sum(data_structure):
     n = 0
-    for v in data_structure:
-        if isinstance(v, int):
-            n += v
-        elif isinstance(v, str):
-            n += len(v)
-        elif isinstance(v, dict):
-            n += calculate_structure_sum(list(v.items()))
-        elif isinstance(v, list):
-            n += calculate_structure_sum(v)
-        elif isinstance(v, tuple):
-            n += calculate_structure_sum(v)
-        elif isinstance(v, set):
-            n += calculate_structure_sum(v)
+    for i in data_structure:
+        if isinstance(i, int):
+            n += i
+        elif isinstance(i, str):
+            n += len(i)
+        elif isinstance(i, dict):
+            n += calculate_structure_sum(list(i.items()))
+        elif isinstance(i, list):
+            n += calculate_structure_sum(i)
+        elif isinstance(i, tuple):
+            n += calculate_structure_sum(i)
+        elif isinstance(i, set):
+            n += calculate_structure_sum(i)
 
     return n
 
