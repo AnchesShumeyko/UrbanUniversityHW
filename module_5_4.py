@@ -3,6 +3,7 @@ class House:
     __instance = None
     def __new__(cls, name, number_of_floors):
         House.houses_history.append(name)
+        if cls.__instance is None:
             cls.__instance = super().__new__(cls)
         return cls.__instance
 
