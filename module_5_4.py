@@ -1,10 +1,9 @@
 class House:
     houses_history = []
-    __instance = None
+
     def __new__(cls, *args):
         House.houses_history.append(args[0])
-        cls.__instance = super().__new__(cls)
-        return cls.__instance
+        return super().__new__(cls)
 
     def __init__(self, name, number_of_floors):
         self.name = name
@@ -13,10 +12,56 @@ class House:
     def __del__(self):
         print(f'{self.name} снесён, но он останется в истории')
 
-    def __str__(self):
-        return (f'Название: {self.name}')
+    def __len__(self):  # метод возвращающий кол-во этажей
+        return self.number_of_floors
 
+    def __str__(self):  # метод, возвращающий имя и этажи
+        return (f'Название: "{self.name}", кол-во этажей: {self.number_of_floors}.')
 
+    # методы для сравнения количества этажей
+    def __eq__(self, other):
+        if not isinstance(other, int) and not isinstance(other, House):
+            return print('ошибка')
+        return self.number_of_floors == other.number_of_floors
+
+    def __lt__(self, other):
+        if not isinstance(other, int) and not isinstance(other, House):
+            return print('ошибка')
+        return self.number_of_floors < other.number_of_floors
+
+    def __le__(self, other):
+        if not isinstance(other, int) and not isinstance(other, House):
+            return print('ошибка')
+        return self.number_of_floors <= other.number_of_floors
+
+    def __gt__(self, other):
+        if not isinstance(other, int) and not isinstance(other, House):
+            return print('ошибка')
+        return self.number_of_floors > other.number_of_floors
+
+    def __ge__(self, other):
+        if not isinstance(other, int) and not isinstance(other, House):
+            return print('ошибка')
+        return self.number_of_floors >= other.number_of_floors
+
+    def __ne__(self, other):
+        if not isinstance(other, int) and not isinstance(other, House):
+            return print('ошибка')
+        return self.number_of_floors != other.number_of_floors
+
+    # методы для сложения
+    def __add__(self, other):
+        if isinstance(other, int):
+            self.number_of_floors = self.number_of_floors + other
+            return self
+        elif not isinstance(self, int):
+            print('ошибка')
+
+    def __radd__(self, other):
+        return self.__add__(other)
+
+    def __iadd__(self, other):
+        return self.__add__(other)
 
 
 h1 = House('ЖК Эльбрус', 10)
