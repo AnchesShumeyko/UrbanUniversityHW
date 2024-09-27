@@ -1,8 +1,8 @@
 class House:
     houses_history = []
     __instance = None
-    def __new__(cls, name, number_of_floors):
-        House.houses_history.append(name)
+    def __new__(cls, *args):
+        House.houses_history.append(args[0])
         cls.__instance = super().__new__(cls)
         return cls.__instance
 
