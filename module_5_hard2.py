@@ -1,18 +1,30 @@
 import time
+"""
+1)Не работает нормально метод UrTube.register (при условии, что если ник есть - получить "Пользователь существует"
+2)не получается правильно оформить вызов метода log_in из UrTube.register и там уже поменять значение current_user
+остальное работает
+"""
+
 class User:
     users = []
+
     def __init__(self, nickname, password, age):
         self.nickname = nickname
         self.password = password
         self.age = age
-        User.users.extend(self.nickname, self.password, self.age)
+        User.users.append(self)
 
     def __repr__(self):
-        return (f'{self.nickname}:{self.password}{self.age}')
+        return (f'{self.nickname} : {self.password} - {self.age} лет')
+
+    # def __hash__(self):
+    #     return hash(password)
+
 
 class Video:
     videos = []
-    def __init__(self, title, duration, adult_mode = False, time_now = 0):
+
+    def __init__(self, title, duration, adult_mode=False, time_now=0):
         self.title = title
         self.duration = duration
         self.adult_mode = adult_mode
@@ -21,43 +33,27 @@ class Video:
     def __repr__(self):
         return (f'{self.title} - {self.duration} секунд')
 
+
 class UrTube:
-    def __init__(self, current_user = None):
+    def __init__(self, current_user=None):
         self.users = User.users
         self.videos = Video.videos
         self.current_user = None
 
     def log_in(self, nickname, password):
-        # self.log_out()
-        for i in User.users:
-            if nickname in i and password in i:
-                self.current_user = nickname
-            # if nickname in i and password not in i:
-            #     print(f'неверный пароль')
-            else:
-                print("Такого пользователя нет")
-
-            # if nickname and password not in i:
-            #     print("Такого пользователя нет")
-            #     break
-
+        self.current_user = nickname
+        if nickname in User.users and password in User.users:
+            self.current_user = nickname
+        if nickname not in i:
+            print("Такого пользователя нет")
 
     def register(self, nickname, password, age):
 
-        if nickname and password not in User.users:
-            self.current_user = nickname
-            # nickname = User.nickname
-            # password = User.password
-            # age = User.age
-            user = (nickname, password, age)
-            User.users.append(user)
-            UrTube.log_in(self, nickname, password)
-
-
-
-        elif nickname in User.users:
+        if nickname in User.users:
             print(f'Пользователь с ником {nickname} уже существует')
-
+        if nickname not in User.users:
+            self.current_user = nickname
+            return User(nickname, password, age)
 
     def log_out(self):
         return self.current_user == None
@@ -71,27 +67,30 @@ class UrTube:
             b = each_video.title
             if word.lower() in b.lower():
                 search_list.append(b)
+        return search_list
 
-        print(search_list)
+    def watch_video(self, movie_name):
+        pass
 
     def watch_video(self, movie_name):
         for each_movie in Video.videos:
+
             if each_movie.title == movie_name and each_movie.adult_mode == False:
-                    self.time_goes(each_movie.duration)
+                self.time_goes(each_movie.duration)
+
             if each_movie.title == movie_name and each_movie.adult_mode == True:
                 for i in User.users:
-                    if i[0] == self.current_user:
-                        if i[2] >= 18:
-                            print(f'{i[0]} Ur in')
+                    if i.nickname == self.current_user:
+                        if i.age >= 18:
+                            # print(f'{i.nickname} Ur in')
                             UrTube.time_now = each_movie.duration
                             self.time_goes(UrTube.time_now)
                             break
-                        if i[2] < 18:
+                        if i.age < 18:
                             print('Вам нет 18 лет, пожалуйста, покиньте страницу')
 
         if self.current_user == None:
             print('Войдите в аккаунт, чтобы смотреть видео')
-
 
     @staticmethod
     def time_goes(rang):
@@ -100,11 +99,10 @@ class UrTube:
             print(i + 1, end=' ')
         time.sleep(1)
         print('конец видео"')
+        return UrTube.time_now == 0
 
 
-
-
-# КОД ПРОВЕРКИ
+# Код для проверки:
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
 v2 = Video('Для чего девушкам парень программист?', 10, adult_mode=True)
@@ -119,20 +117,14 @@ print(ur.get_videos('ПРОГ'))
 # Проверка на вход пользователя и возрастное ограничение
 ur.watch_video('Для чего девушкам парень программист?')
 ur.register('vasya_pupkin', 'lolkekcheburek', 13)
-print(ur.current_user)
 ur.watch_video('Для чего девушкам парень программист?')
 ur.register('urban_pythonist', 'iScX4vIJClb9YQavjAgF', 25)
-print(ur.current_user)
-print(User.users)
 ur.watch_video('Для чего девушкам парень программист?')
-#
-# # Проверка входа в другой аккаунт
+
+# Проверка входа в другой аккаунт
 ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
 print(ur.current_user)
-#
-# не успела
-# # Попытка воспроизведения несуществующего видеот
-# ur.watch_video('Лучший язык программирования 2024 года!')
 
-
-
+# Попытка воспроизведения несуществующего видео
+ur.watch_video('Лучший язык программирования 2024 года!')
+print(User.users)
