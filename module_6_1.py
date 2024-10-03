@@ -1,9 +1,22 @@
+"""
+переделанное ДЗ. В предыдущей версии метод eat был в классе Animal. По задаче должен был
+находиться в Mammal и Predator. По мне логичнее его было оставить в родительском классе, так как
+это свойство хорактерно для всех животных, даже кораллов. Но переделала, хотя это дублирование кода.
+
+если не будет сложно, объясните,пожалуйста, почему именно так просили переделать?
+
+"""
+
+
 class Animal:
     alive = True
     fed = False
 
     def __init__(self, name):
         self.name = name
+
+
+class Mammal(Animal):
 
     def eat(self, food):
         if food.edible == True:
@@ -15,15 +28,19 @@ class Animal:
             self.alive = False
 
 
-class Mammal(Animal):
-    pass
-
-
 class Predator(Animal):
-    pass
+
+    def eat(self, food):
+        if food.edible == True:
+            print(f'{self.name} съел {food.name}')
+            self.fed = True
+
+        if food.edible == False:
+            print(f'{self.name} не стал есть {food.name}')
+            self.alive = False
 
 
-class Plant(Animal):
+class Plant():
     edible = False
 
     def __init__(self, name):
@@ -36,7 +53,6 @@ class Flower(Plant):
 
 class Fruit(Plant):
     edible = True
-
 
 a1 = Predator('Волк с Уолл-Стрит')
 a2 = Mammal('Хатико')
