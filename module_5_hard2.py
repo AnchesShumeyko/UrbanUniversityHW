@@ -1,10 +1,10 @@
 import time
+
 """
-1)Не работает нормально метод UrTube.register (при условии, что если ник есть - получить "Пользователь существует"
-2)не получается правильно оформить вызов метода log_in из UrTube.register и там уже поменять значение current_user
-3)не понятно как рабоать с хещированными данными. Тут должен быть хещ-пароль"
-остальное работает
+не понятно как рабоать с хещированными данными. Тут должен быть хещ-пароль"
+                остальное работает
 """
+
 
 class User:
     users = []
@@ -19,7 +19,7 @@ class User:
         return (f'{self.nickname} : {self.password} - {self.age} лет')
 
     # def __hash__(self):
-    #     return hash(password)
+    #     return hash(self.password)
 
 
 class Video:
@@ -41,23 +41,26 @@ class UrTube:
         self.videos = Video.videos
         self.current_user = None
 
-    def log_in(self, nickname, password):
-        self.current_user = nickname
-        if nickname in User.users and password in User.users:
-            self.current_user = nickname
-        if nickname not in i:
-            print("Такого пользователя нет")
-
     def register(self, nickname, password, age):
-
-        if nickname in User.users:
+        users_list = []
+        for i in User.users:
+            users_list.append(i.nickname)
+        if nickname in users_list:
             print(f'Пользователь с ником {nickname} уже существует')
-        if nickname not in User.users:
-            self.current_user = nickname
-            return User(nickname, password, age)
+        if nickname not in users_list:
+            User(nickname, password, age)
+            self.log_in(nickname, password)
+
+    def log_in(self, nickname, password):
+        for i in User.users:
+            if nickname == i.nickname and password == i.password:
+                self.current_user = nickname
+                # print('You are in')
+            if nickname == i.nickname and password != i.password:
+                print('WRONG PASSWORD')
 
     def log_out(self):
-        return self.current_user == None
+        self.current_user = None
 
     def add(self, *args):
         return Video.videos.extend(args)
@@ -104,6 +107,7 @@ class UrTube:
 
 
 # Код для проверки:
+
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
 v2 = Video('Для чего девушкам парень программист?', 10, adult_mode=True)
@@ -128,4 +132,3 @@ print(ur.current_user)
 
 # Попытка воспроизведения несуществующего видео
 ur.watch_video('Лучший язык программирования 2024 года!')
-print(User.users)
