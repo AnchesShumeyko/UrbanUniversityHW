@@ -1,9 +1,14 @@
+""" примечание к работа:
+можно было не делать прямого обращения к инитам родителей в классе Pegasus, а сделать переопределение инита в 
+классе Horse (оно закомментировано после апробации). Тогда в классе Pegasus, можно было бы инит пропустить"""
+
+
 class Horse:
 
-    def __init__(self, x_distance=0, sound='Frrr'): # переопределение инита, так как добавляем аттрибуты от Орла
+    def __init__(self, x_distance=0, sound='Frrr'): # переопределение инита, так как добавляем от Орла
         self.x_distance = x_distance
         self.sound = sound
-        super().__init__(y_distance=0, sound='I train, eat, sleep,and repeat')
+        # super().__init__(y_distance=0, sound='I train, eat, sleep,and repeat')
 
     def run(self, dx):
         self.x_distance += dx
@@ -22,7 +27,10 @@ class Eagle:
 
 
 class Pegasus(Horse, Eagle):
-    # не надо переопределять инит, так как этот класс все аттрибуты наследует от предыдущих  и не добавляет своего
+    def __init__(self, x_distance=0,  y_distance=0): # этот метод можно убрать, если добавить в инит Horse super от Eagle
+        Horse.__init__(self)
+        Eagle.__init__(self)
+
 
     def move(self, dx, dy):
         self.run(dx), self.fly(dy)
