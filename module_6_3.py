@@ -1,6 +1,6 @@
 class Horse:
 
-    def __init__(self, x_distance=0, sound='Frrr'):
+    def __init__(self, x_distance=0, sound='Frrr'): # переопределение инита, так как добавляем аттрибуты от Орла
         self.x_distance = x_distance
         self.sound = sound
         super().__init__(y_distance=0, sound='I train, eat, sleep,and repeat')
@@ -22,9 +22,7 @@ class Eagle:
 
 
 class Pegasus(Horse, Eagle):
-
-    def __init__(self):
-        super().__init__(x_distance=0, sound='Frrr')
+    # не надо переопределять инит, так как этот класс все аттрибуты наследует от предыдущих  и не добавляет своего
 
     def move(self, dx, dy):
         self.run(dx), self.fly(dy)
@@ -50,4 +48,5 @@ p1.voice()
 # print(issubclass(Pegasus, Eagle))
 # print(issubclass(Horse, Eagle))
 # print(issubclass(Eagle, Horse))
+print(Pegasus.mro())
 
