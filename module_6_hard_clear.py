@@ -6,14 +6,13 @@ from math import pi
 class Figure:
     sides_count = 0  # количество сторон в фигуре
 
-    def __init__(self, color: list, *sides, filled=False):  # список RGB, стороны, заливка фигуры
+    def __init__(self, color: tuple, *sides, filled=False):  # список RGB, стороны, заливка фигуры
         self.__color = color
         self.__sides = sides
-
-        if len(sides) != self.sides_count:  # условия для неправильного ввода кол-ва сторон
-            self._Figure__sides = [1 for i in range(self.sides_count)]  # замена неправильного на 1
+        if len(self._Figure__sides) != self.sides_count:  # условия для неправильного ввода кол-ва сторон
+            self._Figure__sides = [1 for i in range(self.sides_count)]
         else:
-            self._Figure__sides = [i for i in sides]  # "отрисовка" фигуры по количеству сторон
+            self._Figure__sides = [i for i in sides]
         self.filled = filled
 
     def __repr__(self):
@@ -28,7 +27,7 @@ class Figure:
 
     def set_color(self, r, g, b):  # сеттер для получения цветом
         if self.__is_valid_color(r, g, b) == True:
-            self.__color = [r, g, b]
+            self.__color = (r, g, b)
         else:  # принт можно убрать, но мне так проще было тестировать
             return print(
                 "incorrect color value, kept previous")  # все принты введены для лучшей визуализации при тестах
@@ -60,7 +59,7 @@ class Figure:
 class Circle(Figure):
     sides_count = 1
 
-    def __init__(self, color: list, *sides, radius=0):
+    def __init__(self, color: tuple, *sides, radius=0):
         super().__init__(color, *sides, filled=True)
         self.__radius = self.set_radius()  # CHECK!!!!!!!!!!!!!!!
 
@@ -68,8 +67,8 @@ class Circle(Figure):
         for i in self._Figure__sides:
             return i
 
-    # def get_radius(self): # геттер для получения радиуса
-    #     return self.__radius
+    def get_radius(self):  # геттер для получения радиуса
+        return self.__radius
 
     def set_radius(self):  # сеттер для радиуса и заменой его в ините
         for i in self._Figure__sides:
@@ -79,7 +78,7 @@ class Circle(Figure):
     def get_square_side(self):  # площадь круга из периметра
         for i in self._Figure__sides:
             sq = i ** 2 / (4 * pi)
-        return sq
+            return sq
 
     def get_square_rad(self):  # площадь круга из радиуса (попробовала оба метода), чтобы понять. что радиус
         # все таки для каждого круга свой.
@@ -93,8 +92,8 @@ class Circle(Figure):
 class Triangle(Figure):
     sides_count = 3
 
-    def __init__(self, color: list, *sides):  # инит переопределен для заливки фигуры, можно было и не делать
-        super().__init__(color, sides, filled=True)
+    def __init__(self, color: tuple, *sides):  # инит переопределен для заливки фигуры, можно было и не делать
+        super().__init__(color, *sides, filled=True)
 
     def get_square(self):  # получение площади треугольника
         p = 0.5 * (sum(self._Figure__sides))
@@ -109,7 +108,7 @@ class Triangle(Figure):
 class Cube(Figure):
     sides_count = 12
 
-    def __init__(self, color: list, *sides):  # переопределение инита и условий отбора количеста введеных сторон
+    def __init__(self, color: tuple, *sides):  # переопределение инита и условий отбора количеста введеных сторон
         super().__init__(color, sides, filled=False)
         if len(sides) == 1:  # переопределение метода "отбраковки" вводимых значений
             for i in sides:  # цикл для "отрисовки" сторон
@@ -181,10 +180,10 @@ print(cube1.get_volume())
 # f3.set_color(300, 200, 100)
 # print(f3.get_color())
 
-## TEST FOR CIRCLES
+# # TEST FOR CIRCLES
 # crl1 = Circle((1, 1, 1), 20)
 # print(crl1)
-# crl2 = Circle((2, 2, 2), 20, 30)
+# crl2 = Circle((2, 2, 2), 20, 30, 40)
 # print(crl2)
 # crl2.set_color(259, 260,0)
 # print(crl2.get_color())
@@ -197,9 +196,9 @@ print(cube1.get_volume())
 # print(crl1.get_square_rad())
 # print(crl2.get_square_side())
 # print(crl2.get_sides())
-# print(crl2.get_square_rad())
-
-## TEST FOR TRIANGLE
+# print(crl2.get_square_rad()) #при смене периметра, считает по первоначальному
+#
+# # TEST FOR TRIANGLE
 # tr1 = Triangle((1, 1, 1), 10, 10)
 # tr2 = Triangle((2, 2, 2), 5, 6, 7)
 # print(tr1)
@@ -210,11 +209,11 @@ print(cube1.get_volume())
 # print(tr1.get_color())
 # tr1.set_sides(10)
 # tr1.set_sides(20,3.5, 4)
-# tr1.set_sides(5,6,7)
+# tr1.set_sides(9, 10, 11)
 # print(tr1.get_sides())
 # print(tr1.get_square())
-#
-## TEST FOR CUBE
+# #
+# # TEST FOR CUBE
 # c1 = Cube((1,1,1),9)
 # print(c1)
 # print(c1.get_volume())
