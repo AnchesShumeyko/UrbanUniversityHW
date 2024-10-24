@@ -7,15 +7,17 @@ class Car:
         self._is_valid_vin(vin)
         self._is_valid_number(numbers)
 
-    def _is_valid_vin(self, vin_number): # поменять местами
+    @staticmethod
+    def _is_valid_vin(vin_number): # поменять местами
         if not isinstance(vin_number, int):
             raise IncorrectVinNumber(f'Некорректный ти vin номер')
         if vin_number < 1000000 or vin_number > 9999999:
             raise IncorrectVinNumber(f'Неверный диапазон для vin номера')
         else:
             return True
-
-    def _is_valid_number(self, numbers):
+        
+    @staticmethod
+    def _is_valid_number(numbers):
         if not isinstance (numbers, str):
             raise IncorrectCarNumbers(f'Некорректный тип данных для номеров')
         elif len(numbers) != 6:
