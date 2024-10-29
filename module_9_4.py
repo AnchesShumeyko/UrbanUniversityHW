@@ -40,12 +40,3 @@ first_ball = MysticBall('Да', 'Нет', 'Наверное')
 print(first_ball())
 print(first_ball())
 print(first_ball())
-
-# my tests:
-# second_ball = MysticBall('a dog', 'a cat', 'a mouse', 'a dragonfly', 'a lizard', 'a snail')
-# third_ball = MysticBall('run', 'fly', 'crawl', 'walk', 'bite', 'lick')
-# print(f'{second_ball()} can {third_ball()}')
-# print(f'{second_ball()} can {third_ball()}')
-# print(f'{second_ball()} can {third_ball()}')
-# print(f'{second_ball()} can {third_ball()}')
-# print(f'{second_ball()} can {third_ball()}')
