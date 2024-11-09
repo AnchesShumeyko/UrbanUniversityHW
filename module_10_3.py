@@ -5,7 +5,7 @@ from time import sleep
 '''"Банковские операции"'''
 
 
-class Bank():
+class Bank:
     def __init__(self):
         self.balance = 0
         self.lock = threading.Lock()

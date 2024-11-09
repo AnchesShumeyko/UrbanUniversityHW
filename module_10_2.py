@@ -30,6 +30,3 @@ second_knight.join()
 
 print(f'Все битвы закончились')
 
-
-
-
