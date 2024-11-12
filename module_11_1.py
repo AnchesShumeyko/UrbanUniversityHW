@@ -1,6 +1,6 @@
 from icrawler.builtin import GoogleImageCrawler
 import os
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 from random import randint
 import requests
 import datetime
