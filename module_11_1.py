@@ -79,7 +79,6 @@ def make_poster(text, city):
     date = datetime.date.today()
     main_canvas = Image.new('RGB', (500, 900), 'lightblue')
     drawer = ImageDraw.Draw(main_canvas)
-    # font = ImageFont.truetype("font/roboto-light.ttf", size=18)
     drawer.multiline_text((10, 600), text=text, fill='black', font_size=30)
     image1 = Image.open(os.path.join(CITY_DIR, 'poster_picture.jpg'))
     main_canvas.paste(image1, (0, 0))
