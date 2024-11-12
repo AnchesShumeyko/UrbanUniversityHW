@@ -1,6 +1,6 @@
 from icrawler.builtin import GoogleImageCrawler
 import os
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from random import randint
 import requests
 import datetime
@@ -68,8 +68,8 @@ def get_weather(city):
     pressure = json_object['main']['pressure']
     humidity = json_object['main']['humidity']
     wind = json_object['wind']['speed']
-    return (f'{city.capitalize()}\n\ntemperature {round(temp)} C\nhumidity {humidity}%\npressure {pressure} mmHg'
-            f'\nwind speed {wind} m/s')
+    return (f'{city.capitalize()}\n\nтемпература {round(temp)} C\nвлажность {humidity}%\nдавление {pressure} mmHg'
+            f'\nскорость ветра {wind} м/с')
 
 
 """Формируем постер для города"""
@@ -79,7 +79,10 @@ def make_poster(text, city):
     date = datetime.date.today()
     main_canvas = Image.new('RGB', (500, 900), 'lightblue')
     drawer = ImageDraw.Draw(main_canvas)
-    drawer.multiline_text((10, 600), text=text, fill='black', font_size=30)
+    # font = 'Courier New'
+    font = ImageFont.truetype("Courier New", size=18)
+
+    drawer.multiline_text((10, 600), text=text, fill='black', font=font, font_size=30)
     image1 = Image.open(os.path.join(CITY_DIR, 'poster_picture.jpg'))
     main_canvas.paste(image1, (0, 0))
     save_path = os.path.join(ROOT_DIR, f'{city}-{date}.jpg')
@@ -97,4 +100,4 @@ def main(city):
 
 
 if __name__ == '__main__':
-    main('Tula')
+    main('Москва')
