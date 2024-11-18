@@ -1,20 +1,24 @@
-"""Интроспекция"""
+from pprint import pprint
+
+""" Интроспекция"""
 
 
 def introspection_info(obj):
-    result = []
-    result.append(f'Тип объекта: {type(obj)}')
-    result.append(f'Атрибуты объекта: {dir(obj)}')
-    if callable(obj):
-        result.append('Вызываетмость: Да')
-    else:
-        result.append('Вызываетмость: Нет')
-    return '\n'.join(result)
+    obj_type = type(obj).__name__
+    attributes = dir(obj)
+    methods = [attr for attr in attributes if callable(getattr(obj, attr)) and not attr.startswith('__')]
+    module = obj.__class__.__module__
+    result = {
+        'тип объкта': obj_type,
+        'атрибуты': attributes,
+        'методы': methods,
+        'модуль': module
+    }
+
+    return result
 
 
-"""класс для поиска факториала переданного числа"""
-
-
+# Пример использования функции с собственным классом
 class FactorialCalculator:
     def __init__(self):
         self.result = 1
@@ -24,13 +28,10 @@ class FactorialCalculator:
             self.result *= i
         return self.result
 
-unknown = 42 # int
-unknown = (1, 2, 3) # tuple
-unknown = {1, 2, 3}
-unknown = {'chapter 1' : 5, 'chapter 2' : 15, 'chapter 3' : 23} # dict
-unknown = FactorialCalculator  # class
-unknown = FactorialCalculator.find_factorial # function
-unknown = "I'm checking different types of objects" #str
-unknown = [] # list
-number_info = introspection_info(unknown)
-print(number_info)
+
+# Тестирование функции
+number_info = introspection_info(42)
+pprint(number_info)
+
+my_class_info = introspection_info(FactorialCalculator())
+pprint(my_class_info)
