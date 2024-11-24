@@ -1,0 +1,14 @@
+2024-11-24 19:51:42,816 | WARNING | Неверный тип данных для объекта Runner
+Traceback (most recent call last):
+  File "/Users/anchesshumeyko/PycharmProjects/iMac_Anches/module_12/tests_12_4.py", line 20, in test_run
+    runner2 = module_12_4.Runner(2)
+  File "/Users/anchesshumeyko/PycharmProjects/iMac_Anches/module_12/module_12_4.py", line 9, in __init__
+    raise TypeError(f'Имя может быть только строкой, передано {type(name).__name__}')
+TypeError: Имя может быть только строкой, передано int
+2024-11-24 19:51:42,816 | WARNING | Неверная скорость для Runner
+Traceback (most recent call last):
+  File "/Users/anchesshumeyko/PycharmProjects/iMac_Anches/module_12/tests_12_4.py", line 9, in test_walk
+    runner_ = module_12_4.Runner('Penguin', -2)
+  File "/Users/anchesshumeyko/PycharmProjects/iMac_Anches/module_12/module_12_4.py", line 14, in __init__
+    raise ValueError(f'Скорость не может быть отрицательной, сейчас {speed}')
+ValueError: Скорость не может быть отрицательной, сейчас -2
