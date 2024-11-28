@@ -57,7 +57,7 @@ def change_size(picture):
 
 
 def get_weather(city):
-    api_key = 'e402c0d73ff9e18f6abce97a49a735e6'
+    api_key = 'here was a key'
     api_call = f'https://api.openweathermap.org/data/2.5/weather?q={city.lower()}&appid={api_key}'
     try:
         r = requests.get(api_call)
