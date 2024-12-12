@@ -16,7 +16,7 @@ balance INTEGER NOT NULL
 # заполнение таблицы
 for i in range(10):
     sql_request = "INSERT INTO Users (username, email, age, balance) VALUES (?, ?, ?, ?)"
-    params = (f'user{i+1}',f'example{i+1}@gmail.com', f'{(i+1) * 10}',1000)
+    params = (f'user{i+1}',f'example{i+1}@gmail.com', f'{(i+1) * 10}', 1000)
     cursor.execute(sql_request, params)
 
 # изменение баланса у каждой второй записи с 1ой на 500:
